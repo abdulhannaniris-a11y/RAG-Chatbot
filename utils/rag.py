@@ -7,7 +7,7 @@ class RAGChatbot:
         self,
         api_key,
         vector_store,
-        model_name="model_name="openai/gpt-oss-20b"
+        model_name="openai/gpt-oss-20b"
     ):
         self.client = Groq(api_key=api_key)
 
