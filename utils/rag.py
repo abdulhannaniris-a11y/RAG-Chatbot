@@ -1,10 +1,3 @@
-"""
-rag.py
-
-Retrieval-Augmented Generation using
-Groq + FAISS.
-"""
-
 from groq import Groq
 
 
@@ -16,7 +9,6 @@ class RAGChatbot:
         vector_store,
         model_name="llama-3.3-70b-versatile"
     ):
-
         self.client = Groq(api_key=api_key)
 
         print("===== GROQ DIAGNOSTIC =====")
