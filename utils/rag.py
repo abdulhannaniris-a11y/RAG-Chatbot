@@ -12,11 +12,17 @@ class RAGChatbot:
 
     def __init__(self, api_key, vector_store, model_name="llama-3.3-70b-versatile"):
 
-        self.client = Groq(api_key=api_key)
+    self.client = Groq(api_key=api_key)
 
-        self.vector_store = vector_store
+    # Check which models this API key can access
+    models = self.client.models.list()
 
-        self.model_name = model_name
+    print("AVAILABLE GROQ MODELS:")
+    for model in models.data:
+        print(model.id)
+
+    self.vector_store = vector_store
+    self.model_name = model_name
 
 
     def ask(self, question, top_k=3):
