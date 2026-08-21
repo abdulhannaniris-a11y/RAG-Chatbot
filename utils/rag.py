@@ -10,28 +10,33 @@ from groq import Groq
 
 class RAGChatbot:
 
-    def __init__(self, api_key, vector_store, model_name="llama-3.3-70b-versatile"):
+    def __init__(
+        self,
+        api_key,
+        vector_store,
+        model_name="llama-3.3-70b-versatile"
+    ):
 
-    self.client = Groq(api_key=api_key)
+        self.client = Groq(api_key=api_key)
 
-    print("===== GROQ DIAGNOSTIC =====")
-    print("API KEY RECEIVED:", bool(api_key))
-    print("MODEL REQUESTED:", model_name)
+        print("===== GROQ DIAGNOSTIC =====")
+        print("API KEY RECEIVED:", bool(api_key))
+        print("MODEL REQUESTED:", model_name)
 
-    try:
-        models = self.client.models.list()
+        try:
+            models = self.client.models.list()
 
-        print("AVAILABLE MODELS:")
-        for model in models.data:
-            print(model.id)
+            print("AVAILABLE MODELS:")
 
-    except Exception as e:
-        print("MODEL LIST ERROR:", repr(e))
-        raise
+            for model in models.data:
+                print(model.id)
 
-    self.vector_store = vector_store
-    self.model_name = model_name
+        except Exception as e:
+            print("MODEL LIST ERROR:", repr(e))
+            raise
 
+        self.vector_store = vector_store
+        self.model_name = model_name
 
     def ask(self, question, top_k=3):
 
@@ -61,16 +66,13 @@ Question:
 """
 
         response = self.client.chat.completions.create(
-
             model=self.model_name,
-
             messages=[
                 {
                     "role": "user",
                     "content": prompt
                 }
             ],
-
             temperature=0
         )
 
