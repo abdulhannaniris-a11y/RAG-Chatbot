@@ -14,12 +14,20 @@ class RAGChatbot:
 
     self.client = Groq(api_key=api_key)
 
-    # Check which models this API key can access
-    models = self.client.models.list()
+    print("===== GROQ DIAGNOSTIC =====")
+    print("API KEY RECEIVED:", bool(api_key))
+    print("MODEL REQUESTED:", model_name)
 
-    print("AVAILABLE GROQ MODELS:")
-    for model in models.data:
-        print(model.id)
+    try:
+        models = self.client.models.list()
+
+        print("AVAILABLE MODELS:")
+        for model in models.data:
+            print(model.id)
+
+    except Exception as e:
+        print("MODEL LIST ERROR:", repr(e))
+        raise
 
     self.vector_store = vector_store
     self.model_name = model_name
